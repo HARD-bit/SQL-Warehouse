@@ -1,3 +1,21 @@
+# SQL Data Warehouse Project
+
+## Overview
+This repository contains a **SQL-based Data Warehouse project** designed to support **analytical queries, reporting, and business intelligence** use cases.
+
+The project focuses on:
+- Proper **data modeling**
+- Clear **ETL / ELT logic**
+- SQL best practices
+- Analytics-ready datasets
+
+It is intended as a **portfolio project** for Data Engineering / Analytics Engineering roles.
+
+---
+
+## Architecture
+The Data Warehouse follows a layered architecture:
+
 
 ### Layers Description
 - **Staging**: raw data ingestion and basic cleansing
@@ -81,6 +99,3 @@ All transformations are implemented using **pure SQL**.
 ## 👤 Author
 **Gabriele Rumi**  
 Data Engineer | SQL | Data Warehousing
-
-
-## 📂 Project Structure
