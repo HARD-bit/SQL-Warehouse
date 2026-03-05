@@ -102,3 +102,82 @@ DATEDIFF(year, BirthDate, GETDATE()) AS age
 FROM Sales.Employees
 
 --ISDATE() will check if a value is a date return 1 if true 0 if false
+
+
+--NULL FUNCTIONS
+
+--IS NULL(Value, replacement_value) will replace 'NULL' with a specified value
+--COALESCE() will do the same as IS NULL but taking as input 2 option, the second will be activate if the first is a null
+--(Slow but avaliable in every database)
+USE SalesDB
+SELECT
+CustomerID,
+Score,
+AVG(Score) OVER() AvgScore,
+AVG(COALESCE(Score, 0)) OVER() AvgScoreWithoutNull
+FROM Sales.Customers
+
+
+
+USE SalesDB
+SELECT CustomerID,Score,
+CASE WHEN Score IS NULL THEN 1 ELSE 0 END AS Flag
+FROM Sales.Customers
+
+ORDER BY Flag,Score
+
+--NULLIF() Compare two expressions and returns NULL if they are equal or the first one if different
+
+
+--TRIM() removes unwanted leading and trailing  spaces from a string 
+
+
+--CASE STATEMENT will evaluetes a list of conditions and return a value when the first condition is met,the data type of the results must be the same
+--if the else is not specyfied, the alternative result will be a null
+
+--USE CASES(Categorizing data,Mapping Values, Handling Nulls, Conditional Aggregations)
+
+USE SalesDB
+
+SELECT 
+Category,
+SUM(Sales) AS Total_Sales
+FROM(
+	SELECT
+	OrderID,
+	Sales,
+	CASE 
+		WHEN Sales > 50 THEN 'High'
+		WHEN Sales > 20 THEN 'Medium'
+		ELSE 'Low'
+	END AS Category
+	FROM Sales.Orders
+) AS t
+GROUP BY Category
+ORDER BY Total_Sales DESC
+
+
+SELECT 
+CustomerID,
+LastName,
+Score,
+CASE 
+	WHEN Score IS NULL THEN 0
+	ELSE Score
+END Score_Clean,
+AVG(CASE 
+	WHEN Score IS NULL THEN 0
+	ELSE Score
+END) OVER() Avg_Customer
+FROM Sales.Customers
+
+
+
+SELECT 
+CustomerID,
+SUM(CASE WHEN Sales > 30 THEN 1
+	ELSE 0
+	END) AS Total_Orders
+	
+FROM Sales.Orders
+GROUP BY CustomerID
