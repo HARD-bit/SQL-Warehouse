@@ -74,3 +74,7 @@ UNION ALL
 
 SELECT *
 FROM Sales.OrdersArchive
+
+
+--LEFT ANTI JOIN returns all rows from the left table, without matches in the right table
+
